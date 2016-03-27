@@ -1,12 +1,11 @@
 # API
    - [#set](#set)
    - [#get](#get)
-   - [#singleton](#singleton)
-   - [#registry](#registry)
+   - [#getRegistry](#getregistry)
 <a name=""></a>
 
 <a name="set"></a>
-# #set
+## #set (key, value [, isSingleton])
 always returns different value for same key.
 
 ```js
@@ -25,12 +24,25 @@ can be chained.
 ```js
 var di = dico().set(1, 2).set(2, 3);
 
-assert.deepEqual({1: 2, 2: 3}, di.registry);
+assert.deepEqual({1: 2, 2: 3}, di.getRegistry());
+```
+
+always returns same value for same key if singleton set to true.
+
+```js
+var di = dico().set('random', function () {
+    return Math.random();
+}, true);
+
+var a = di.get('random');
+var b = di.get('random');
+
+assert.equal(a, b);
 ```
 
 <a name="get"></a>
-# #get
-returns the same object as previously set by some key.
+## #get (key)
+returns the same object as previously set by the some key.
 
 ```js
 var value = 'some service';
@@ -39,23 +51,8 @@ var di = dico().set('key', value);
 assert.equal(value, di.get('key'))
 ```
 
-<a name="singleton"></a>
-# #singleton
-always returns same value for same key.
-
-```js
-var di = dico().singleton('random', function () {
-    return Math.random();
-});
-
-var a = di.get('random');
-var b = di.get('random');
-
-assert.equal(a, b);
-```
-
-<a name="registry"></a>
-# #registry
+<a name="getregistry"></a>
+## #getRegistry ()
 returns its value.
 
 ```js
@@ -63,6 +60,6 @@ var di = dico().set('random', function () {
     return Math.random();
 });
 
-assert.ok(di.registry.random);
-assert.equal(Object.keys(di.registry).length, 1);
+assert.ok(di.getRegistry().random);
+assert.equal(Object.keys(di.getRegistry()).length, 1);
 ```
