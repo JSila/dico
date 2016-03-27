@@ -1,0 +1,17 @@
+{
+  "name": "dico",
+  "version": "0.1.0",
+  "description": "Container for JavaScript",
+  "author": "Jernej Sila <jernej.sila@gmail.com>",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha",
+    "test-watch": "mocha --watch --growl"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "stampit": "^2.1.1"
+  }
+}
